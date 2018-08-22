@@ -6,6 +6,6 @@ const app = require("express")(),
 app.use('/', routes);
 
 
-app.listen(3000, ()=> {
+app.listen(3001, ()=> {
 	console.log("serving at 3000");
 })
