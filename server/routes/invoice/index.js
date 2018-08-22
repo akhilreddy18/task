@@ -1,8 +1,17 @@
 const models = require('express').Router();
-const all = require('./all');
-const single = require('./single');
+const data = require('../../data.json');
 
-models.get('/:invoiceId', single);
-models.get('/', all);
+module.exports = models.get('/', (req, res) => {
+	console.log(req.query)
 
-module.exports = models;
+	if(req.query=""){
+		const keyInvoiceId = Number(req.query.invoiceId)
+		 const foundInvoice = data.find(m => m.invoiceId === keyInvoiceId);
+		 res.status(200).json({ foundInvoice });
+	}
+	else {
+		 const allInvoices = data;
+ 		 res.status(200).json({ allInvoices });
+	}
+ 
+});

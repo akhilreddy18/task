@@ -1,4 +1,4 @@
-const APIURL = 'http://localhost:3001/invoice/1';
+const APIURL = 'http://localhost:3001/invoice';
 
 export async function getInvoice() {
 	
@@ -15,7 +15,7 @@ export async function getInvoice() {
   //       //   throw err;
   //       // }
   //     }
-  console.log(resp.body);
+  console.log(resp);
       return resp;
    })
 }
