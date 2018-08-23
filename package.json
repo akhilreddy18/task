@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "react-scripts": "1.1.4",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "express": "^4.16.3",
-    "nodemon": "^1.18.3"
+    "nodemon": "^1.18.3",
+    "react": "^16.4.2",
+    "react-data-fetching-components": "^0.1.1",
+    "react-dom": "^16.4.2",
+    "react-scripts": "1.1.4"
   },
   "proxy": "http://localhost:3001",
   "scripts": {
