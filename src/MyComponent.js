@@ -7,7 +7,8 @@ class MyComponent extends Component {
     this.state = {
       error: null,
       items: [],
-      value: ''
+      value: '',
+      test: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -19,11 +20,8 @@ class MyComponent extends Component {
 
   getInvoice(iurl){
   	fetch(iurl)
-      .then(res => {
-        return res.json(); 
-        console.log(res)})
+      .then(res => res.json())
       .then((result) => {
-        console.log(result)
           this.setState({ items: result.foundInvoice });
         },
         (error) => {
@@ -34,18 +32,15 @@ class MyComponent extends Component {
 
   handleChange(event) {
     this.setState({value: event.target.value});
+    console.log(this.state.value)
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    // this.getInvoice("http://localhost:3001/invoice/test")
-    fetch("http://localhost:3001/invoice/test")
-      .then(res => {
-        return res.json();
-        })
+    fetch("http://localhost:3001/invoice?invoiceId="+this.state.value)
+      .then(res => res.json())
       .then((result) => {
-        console.log(typeof result)
-          this.setState({ value: result });
+          this.setState({test: result.foundInvoice.sender.name})
         },
         (error) => {
           this.setState({ error });
@@ -54,27 +49,29 @@ class MyComponent extends Component {
   }
 
   render() {
-    const { error, items, value } = this.state;
+    const { error, items, value, test } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;
     } else {
       return (
-      <div>
-	       <form onSubmit={this.handleSubmit}>
-	        <label>
-	          Name:
-	          <input type="text" name="invoiceId" value={this.state.value} onChange={this.handleChange} />
-	        </label>
-	        <input type="submit" value="Submit" />
-	      </form>
-        <p> {value} </p>
-        <ul>
-          {items.map(item => (
-            <li key={item.invoiceId}>
-              {item.sender.name}
-            </li>
-          ))}
-        </ul>
+        <div>
+            <div>
+      	       <form onSubmit={this.handleSubmit}>
+      	          <input type="text" name="invoiceId" value={this.state.value} onChange={this.handleChange} />
+                 <input type="submit" value="Submit"></input>
+      	      </form>
+              </div>
+            <div>
+            <p> {value} </p>
+            <ul>
+              {items.map(item => (
+                <li key={item.invoiceId}>
+                  {item.sender.name} - {item.invoiceId}
+                </li>
+              ))}
+            </ul>
+            <h1> {test} </h1>
+            </div>
         </div>
       );
     }
